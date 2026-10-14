@@ -22,21 +22,17 @@ The system is designed to mimic a clinical diagnostic workflow, prioritizing rec
 ## Results & Metrics
 
 *Evaluated on a strictly held-out patient test set.*
-
 | Stage | Metric | Score | Notes |
 | :--- | :--- | :--- | :--- |
-| **Stage 1 (Malignant vs Benign)** | **ROC-AUC** | `0.965` | High sensitivity maintained to prevent False Negatives. |
-| **Stage 1 (Malignant vs Benign)** | **F1-Score** | `0.921` | |
-| **Stage 2 (Severity Staging)** | **Cohen's Kappa** | `0.884` | Evaluated using Quadratic Weighted Kappa for ordinal classes. |
-| **System Wide** | **Calibration (Brier)** | `0.042` | Highly calibrated probabilities via ensemble rank averaging. |
-
-*(Note: Replace example scores with your actual metrics)*
-
+| **Stage 1 (Binary Ensemble)** | **ROC-AUC** | `0.9718` | Calibrated 4-model ensemble + metadata LR meta-learner on held-out test set. |
+| **Stage 1 (Binary Ensemble)** | **Test Accuracy** | `92.23%` | Threshold optimized at 0.42 via Nelder-Mead on validation set. |
+| **Stage 1 (Malignant class)** | **F1-Score** | `0.894` | Precision: 0.896, Recall: 0.893 on 934 malignant test samples. |
+| **Stage 2 (Severity Staging)** | **Cohen's Kappa** | *(see severity-ensemble.ipynb)* | CORAL ordinal ensemble — 3 models weighted by validation kappa. |
 ## How to Run the Inference Dashboard
 
 **1. Clone the repository:**
 ```bash
-git clone https://github.com/your-username/DermTriage.git
+git clone https://github.com/bhavikadlecha/DermaTriage.git
 cd DermTriage
 ```
 
